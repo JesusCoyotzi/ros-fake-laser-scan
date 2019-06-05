@@ -6,9 +6,7 @@
 
 //ROS includes:
 
-#include "fake_scan_node.h"
-
-
+#include "fake_laser_scan/fake_scan_node.h"
 
 void FakeLaserScan::begin()
 {
@@ -23,7 +21,8 @@ void FakeLaserScan::begin()
 								nh_priv.param<float>("noise_mean",noiseMean,5.0);
 								nh_priv.param<float>("angle_min",angleMin,-1.07);
 								nh_priv.param<float>("angle_max",angleMax,1.07);
-
+								nh_priv.param<int>("samples_per_rev",samplesRev,400);
+								nh_priv.param<float>("laser_time",laserPeriod,0.1);
 
 								srand(time(NULL));
 								return;
@@ -34,17 +33,17 @@ void FakeLaserScan::fakeScanPublisher()
 								sensor_msgs::LaserScan scan;
 								scan.angle_min = angleMin;
 								scan.angle_max = angleMax;
-								scan.angle_increment = (angleMax-angleMin) / g_SAMPLES_PER_REV;
-								scan.time_increment = (1 / g_LASER_FREQ) / (g_SAMPLES_PER_REV);;
+								scan.angle_increment = (angleMax-angleMin) / samplesRev;
+								scan.time_increment = (1 / laserPeriod) / (samplesRev);;
 								scan.range_min = 0.5;
 								scan.range_max = 6.0;
 								scan.header.frame_id = laserFrame;
-								scan.ranges.resize(g_SAMPLES_PER_REV);
-								scan.intensities.resize(g_SAMPLES_PER_REV);
+								scan.ranges.resize(samplesRev);
+								scan.intensities.resize(samplesRev);
 								while (ros::ok())
 								{
 																scan.scan_time = 0.1; //same as rate
-																for(int i = 0; i < g_SAMPLES_PER_REV; i++)
+																for(int i = 0; i < samplesRev; i++)
 																{
 																								float x = (float) rand() / (float)(RAND_MAX);
 																								scan.ranges[i] = noiseMean + x *noiseVariance;

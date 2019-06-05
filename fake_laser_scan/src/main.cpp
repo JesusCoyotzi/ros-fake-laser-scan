@@ -5,7 +5,7 @@
 
 #include <ros/ros.h>
 #include <sensor_msgs/LaserScan.h>
-#include "fake_scan_node.h"
+#include "fake_laser_scan/fake_scan_node.h"
 
 
 int main(int argc, char** argv )
