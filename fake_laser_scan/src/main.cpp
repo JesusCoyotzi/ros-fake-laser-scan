@@ -7,11 +7,12 @@
 #include <sensor_msgs/LaserScan.h>
 #include "fake_scan_node.h"
 
-FakeLaserScan laserScan;
 
-int main()
+int main(int argc, char** argv )
 {
-	laserScan.begin();
-	laserScan.fakeScanPublisher();
-return 0;
+								FakeLaserScan laserScan;
+								ros::init(argc, argv, "laser_scan_publisher");
+								laserScan.begin();
+								laserScan.fakeScanPublisher();
+								return 0;
 }

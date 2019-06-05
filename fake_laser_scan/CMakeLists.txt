@@ -115,7 +115,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 #include_directories(include)
 include_directories(${catkin_INCLUDE_DIRS}
-  
+
 )
 
 ## Declare a C++ library
@@ -130,7 +130,7 @@ include_directories(${catkin_INCLUDE_DIRS}
 
 ## Declare a C++ executable
 #add_executable(fake_laser_scan_node src/main.cpp)
-add_executable(fake_laser_scan_node src/main_edit.cpp)
+add_executable(fake_laser_scan_node src/main.cpp src/fake_scan_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
